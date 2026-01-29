@@ -21,9 +21,9 @@ namespace EShopp.Web.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult CreateCategory(Category category)
+        public async Task<IActionResult> CreateCategory(Category category)
         {
-            _categoryService.AddCategory(category);
+            await _categoryService.AddCategory(category);
             return RedirectToAction("Index", "Home");
         }
         [HttpGet]
@@ -33,9 +33,9 @@ namespace EShopp.Web.Controllers
             return View(categories);
         }
 
-        public IActionResult DeleteCategory(int id)
+        public async Task<IActionResult> DeleteCategory(int id)
         {
-            _categoryService.RemoveCategory(id);
+            await _categoryService.RemoveCategory(id);
             return RedirectToAction("GetAllCategories");
         }
     }

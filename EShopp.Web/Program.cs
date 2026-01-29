@@ -14,6 +14,7 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 // Service
 builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<IProductService, ProductService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

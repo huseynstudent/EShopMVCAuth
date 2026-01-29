@@ -1,6 +1,7 @@
 ﻿using EShopp.Aplication.Abstacts;
 using EShopp.DAL.UnitOfWork;
 using EShopp.Domain.Entities;
+using System.Threading.Tasks;
 
 namespace EShopp.Aplication.Concretes;
 
@@ -13,10 +14,10 @@ public class CategoryService : ICategoryService
         _unitOfWork = unitOfWork;
     }
 
-    public void AddCategory(Category category)
+    public async Task AddCategory(Category category)
     {
-        _unitOfWork.Categories.AddAsync(category);
-        _unitOfWork.SaveChangesAsync();
+        await _unitOfWork.Categories.AddAsync(category);
+        await _unitOfWork.SaveChangesAsync();
     }
 
     public async Task<IEnumerable<Category>> GetAllCategoriesAsync()
@@ -29,17 +30,17 @@ public class CategoryService : ICategoryService
         return await _unitOfWork.Categories.GetByIdAsync(id);
     }
 
-    public void RemoveCategory(int id)
+    public async Task RemoveCategory(int id)
     {
         _unitOfWork.Categories.Delete(id);
-        _unitOfWork.SaveChangesAsync();
+        await _unitOfWork.SaveChangesAsync();
 
     }
 
-    public void UpdateCategory(Category category)
+    public async Task UpdateCategory(Category category)
     {
         _unitOfWork.Categories.Update(category);
-        _unitOfWork.SaveChangesAsync();
+        await _unitOfWork.SaveChangesAsync();
 
     }
 }

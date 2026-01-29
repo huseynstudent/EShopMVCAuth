@@ -8,10 +8,12 @@ public class UnitOfWork : IUnitOfWork
 {
     private readonly EShoppDbContext _context;
     public ICategoryRepository Categories { get; }
+    public IProductRepository Products { get; }
     public UnitOfWork(EShoppDbContext context)
     {
         _context = context;
         Categories = new CategoryRepository(_context);
+        Products = new ProductRepository(_context);
     }
     public async Task<int> SaveChangesAsync()
     {
