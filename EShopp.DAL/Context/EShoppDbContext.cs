@@ -1,14 +1,15 @@
 ﻿using EShopp.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace EShopp.DAL.Context;
 
-public class EShoppDbContext:DbContext
+public class EShoppDbContext : IdentityDbContext<ApplicationUser>
 {
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    public EShoppDbContext(DbContextOptions<EShoppDbContext> options) : base(options)
     {
-        optionsBuilder.UseSqlServer("Data Source=DESKTOP-5566K3T;Initial Catalog=EShopp;Integrated Security=True;Connect Timeout=30;Encrypt=True;Trust Server Certificate=True");
     }
+
     public DbSet<Product> Products { get; set; }
     public DbSet<Category> Categories { get; set; }
     public DbSet<Order> Orders { get; set; }
