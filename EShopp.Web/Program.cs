@@ -46,6 +46,7 @@ builder.Services.AddAuthorization(options =>
         .Build();
 });
 
+
 var app = builder.Build();
 if (!app.Environment.IsDevelopment())
 {
