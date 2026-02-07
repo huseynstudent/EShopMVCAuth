@@ -1,11 +1,12 @@
 ﻿using EShopp.Aplication.Abstacts;
 using EShopp.Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 
 namespace EShopp.Web.Controllers;
-
+[Authorize]
 public class CategoryController : Controller
 {
     private readonly ICategoryService _categoryService;
@@ -27,6 +28,7 @@ public class CategoryController : Controller
         return RedirectToAction("Index", "Home");
     }
     [HttpGet]
+    [AllowAnonymous]
     public async Task<IActionResult> GetAllCategories()
     {
         var categories = await _categoryService.GetAllCategoriesAsync();

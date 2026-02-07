@@ -1,8 +1,9 @@
 ﻿using EShopp.Aplication.Abstacts;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EShopp.Web.Controllers;
-
+[Authorize]
 public class OrderController : Controller
 {
     private readonly IOrderService _orderService;
