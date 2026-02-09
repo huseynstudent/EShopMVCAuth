@@ -6,7 +6,6 @@ using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 
 namespace EShopp.Web.Controllers;
-[Authorize]
 public class CategoryController : Controller
 {
     private readonly ICategoryService _categoryService;
@@ -17,6 +16,7 @@ public class CategoryController : Controller
     }
 
     [HttpGet]
+    [Authorize(Roles = "Admin")]
     public IActionResult CreateCategory()
     {
         return View();
@@ -28,13 +28,12 @@ public class CategoryController : Controller
         return RedirectToAction("Index", "Home");
     }
     [HttpGet]
-    [AllowAnonymous]
     public async Task<IActionResult> GetAllCategories()
     {
         var categories = await _categoryService.GetAllCategoriesAsync();
         return View(categories);
     }
-
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> DeleteCategory(int id)
     {
         await _categoryService.RemoveCategory(id);

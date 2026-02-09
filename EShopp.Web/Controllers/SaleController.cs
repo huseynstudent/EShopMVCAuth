@@ -14,6 +14,7 @@ public class SaleController : Controller
     }
 
     [HttpPost]
+    [Authorize(Roles = "Cashier")]
     public async Task<IActionResult> Buy(int id)
     {
         await _saleService.BuyAsync(id);

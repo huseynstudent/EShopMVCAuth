@@ -19,6 +19,7 @@ public class ProductController : Controller
     }
 
     [HttpGet]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> CreateProduct()
     {
         var categories = await _categoryService.GetAllCategoriesAsync();
@@ -34,6 +35,7 @@ public class ProductController : Controller
     }
 
     [HttpPost]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> CreateProduct(Product product)
     {
         await _productService.AddProduct(product);
@@ -49,6 +51,7 @@ public class ProductController : Controller
     }
 
     [HttpPost]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> DeleteProduct(int id)
     {
         await _productService.RemoveProduct(id);
@@ -56,9 +59,17 @@ public class ProductController : Controller
     }
 
     [HttpPost]
+    [Authorize(Roles = "Cashier")]
     public async Task<IActionResult> AddToCart(int id)
     {
         await _productService.AddToCart(id);
+        return RedirectToAction("GetAllProducts");
+    }
+    [HttpPost]
+    [Authorize(Roles = "Admin,Cashier")]
+    public async Task<IActionResult> AddStock(int id)
+    {
+        await _productService.AddStock(id);
         return RedirectToAction("GetAllProducts");
     }
 }

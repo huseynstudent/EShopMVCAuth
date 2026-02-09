@@ -14,6 +14,7 @@ public class OrderController : Controller
     }
 
     [HttpGet]
+    [Authorize(Roles = "Cashier,Admin")]
     public async Task<IActionResult> GetAllOrders()
     {
         var orders = await _orderService.GetAllOrdersAsync();
@@ -21,6 +22,7 @@ public class OrderController : Controller
     }
 
     [HttpPost]
+    [Authorize(Roles = "Cashier")]
     public async Task<IActionResult> IncreaseQuantity(int id)
     {
         await _orderService.IncreaseQuantityAsync(id);
@@ -28,12 +30,13 @@ public class OrderController : Controller
     }
 
     [HttpPost]
+    [Authorize(Roles = "Cashier")]
     public async Task<IActionResult> DecreaseQuantity(int id)
     {
         await _orderService.DecreaseQuantityAsync(id);
         return RedirectToAction("GetAllOrders");
     }
-
+    [Authorize(Roles = "Cashier")]
     [HttpPost]
     public async Task<IActionResult> RemoveFromCart(int id)
     {
